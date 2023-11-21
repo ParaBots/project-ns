@@ -1,0 +1,119 @@
+[gd_scene load_steps=17 format=3 uid="uid://fygyik2ft57p"]
+
+[ext_resource type="PackedScene" uid="uid://comqupfjv0hw5" path="res://scenes/monsters/base_mob_object.tscn" id="1_cyqns"]
+[ext_resource type="Script" path="res://scenes/monsters/weak_mob.gd" id="2_gshej"]
+[ext_resource type="Texture2D" uid="uid://b47c5q4glf4m1" path="res://assets/monsters/placeholder/DinoSprites - vita.png" id="2_kdqj5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h17ik"]
+atlas = ExtResource("2_kdqj5")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uux8"]
+atlas = ExtResource("2_kdqj5")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnsc6"]
+atlas = ExtResource("2_kdqj5")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pp4uh"]
+atlas = ExtResource("2_kdqj5")
+region = Rect2(408, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yt6as"]
+atlas = ExtResource("2_kdqj5")
+region = Rect2(432, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6h7l0"]
+atlas = ExtResource("2_kdqj5")
+region = Rect2(456, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1q6d"]
+atlas = ExtResource("2_kdqj5")
+region = Rect2(480, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vfk7"]
+atlas = ExtResource("2_kdqj5")
+region = Rect2(504, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08kd4"]
+atlas = ExtResource("2_kdqj5")
+region = Rect2(528, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2o5rf"]
+atlas = ExtResource("2_kdqj5")
+region = Rect2(552, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ajsep"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h17ik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5uux8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnsc6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pp4uh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yt6as")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6h7l0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1q6d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vfk7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08kd4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2o5rf")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a1b0h"]
+radius = 3.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1j85q"]
+size = Vector2(15, 17)
+
+[node name="weak_mob" instance=ExtResource("1_cyqns")]
+collision_mask = 2
+script = ExtResource("2_gshej")
+health = 5
+max_health = 5
+damage = 1
+speed = 20
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ajsep")
+animation = &"idle"
+
+[node name="MobCollisionBox" parent="." index="1"]
+shape = SubResource("CircleShape2D_a1b0h")
+
+[node name="PlayerCollisionBox" parent="Area2D" index="0"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_1j85q")

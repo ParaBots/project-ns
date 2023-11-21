@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgjcygm037fag"]
+
+[ext_resource type="Script" path="res://scenes/characters/base_character_object.gd" id="1_83mvv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ph8ak"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_klrmg"]
+size = Vector2(14.5, 12.5)
+
+[sub_resource type="Curve2D" id="Curve2D_l4jcl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -232, -136, 0, 0, 0, 0, -232, 136, 0, 0, 0, 0, 232, 136, 0, 0, 0, 0, 232, -136, 0, 0, 0, 0, -232, -136)
+}
+point_count = 5
+
+[node name="base_character_object" type="CharacterBody2D"]
+script = ExtResource("1_83mvv")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ph8ak")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_klrmg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="MobSpawnPath" type="Path2D" parent="."]
+scale = Vector2(1.15, 1.15)
+curve = SubResource("Curve2D_l4jcl")
+metadata/_edit_group_ = true
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobSpawnPath"]
+position = Vector2(-232, -136)
+rotation = 3.14159
+progress = 1472.0

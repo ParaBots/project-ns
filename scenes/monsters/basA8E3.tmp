@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://comqupfjv0hw5"]
+
+[ext_resource type="Script" path="res://scenes/monsters/base_mob_object.gd" id="1_i6mk1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_58rrn"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="base_mob_object" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_i6mk1")
+health = null
+max_health = null
+damage = null
+ability_damage = null
+speed = null
+exp_drop_amount = null
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_58rrn")
+animation = &"die"
+
+[node name="CollisionShapeWithMonster" type="CollisionShape2D" parent="."]
+debug_color = Color(0.956863, 0, 0.529412, 0.419608)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShapeWithPlayer" type="CollisionShape2D" parent="Area2D"]
+
+[node name="basic_attack_cooldown" type="Timer" parent="."]
+wait_time = 0.65
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="basic_attack_cooldown" to="." method="_on_basic_attack_cooldown_timeout"]
