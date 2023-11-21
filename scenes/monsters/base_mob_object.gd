@@ -34,7 +34,7 @@ func drop_exp()->void:
 	var exp_orb = _exp_orb.instantiate()
 	exp_orb.set_exp_value(exp_drop_amount)
 	exp_orb.position = position
-	get_parent().add_child(_exp_orb)
+	get_node("/root/game").add_child(exp_orb)
 
 
 func gain_health(amount: int)->void:

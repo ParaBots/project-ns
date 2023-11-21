@@ -7,6 +7,7 @@ extends CharacterBody2D
 @export var max_shield: int = 0
 @export var speed: int = 0
 
+var experience: int = 0
 var screen_size
 
 
@@ -18,6 +19,11 @@ func _ready():
 
 func die()->void:
 	pass
+
+
+func gain_experience(amount: int)->void:
+	experience += amount
+	print("Current exp: " + str(experience))
 
 
 func gain_health(amount: int)->void:

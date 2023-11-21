@@ -5,8 +5,7 @@ var exp_value: int
 
 
 func _ready():
-	$AnimatedSprite.animation = colour
-	set_exp_value(exp_value)
+	$AnimatedSprite2D.animation = colour
 
 # body can only be character body because of layer masks n shit
 func _on_body_entered(body: CharacterBody2D)->void:

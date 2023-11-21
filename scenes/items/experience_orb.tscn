@@ -46,6 +46,7 @@ animations = [{
 }]
 
 [node name="experience_orb" type="Area2D"]
+scale = Vector2(0.3, 0.3)
 script = ExtResource("1_sqb7j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -55,3 +56,5 @@ shape = SubResource("CapsuleShape2D_fn8ll")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_cy4a7")
 animation = &"blue"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
