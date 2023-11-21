@@ -105,6 +105,7 @@ health = 5
 max_health = 5
 damage = 1
 speed = 20
+exp_drop_amount = 1
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 texture_filter = 1
