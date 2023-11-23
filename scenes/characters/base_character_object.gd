@@ -7,13 +7,19 @@ extends CharacterBody2D
 @export var max_shield: int = 0
 @export var speed: int = 0
 
-var minutes_played: int = 0
-var seconds_played: int = 0
-
 var level: int = 1
 var experience: int = 0
 var experience_to_level_up: int = 3 * (ceil(float(level)/2) ) * (1 + (ceil(float(level)/2)))
 var screen_size
+
+# probably move this over to the actual game scene instead of keeping it here, but need to
+# refactor the UI for that, can happen later, surely nothing will break when I do it then..
+var minutes_played: int = 0
+var seconds_played: int = 0
+
+
+# temporary debug #
+var thunder_shock_ability = preload("res://scenes/abilities/thunder_shock.tscn")
 
 
 func _ready():
@@ -22,6 +28,8 @@ func _ready():
 	$AnimatedSprite2D.play()
 	_update_exp_label()
 	$experience_bar.max_value = experience_to_level_up
+	var _thunder_shock_ability = thunder_shock_ability.instantiate()
+	add_child(_thunder_shock_ability)
 	
 
 
