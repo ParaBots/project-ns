@@ -7,7 +7,12 @@ extends CharacterBody2D
 @export var max_shield: int = 0
 @export var speed: int = 0
 
+var minutes_played: int = 0
+var seconds_played: int = 0
+
+var level: int = 1
 var experience: int = 0
+var experience_to_level_up: int = 3 * (ceil(float(level)/2) ) * (1 + (ceil(float(level)/2)))
 var screen_size
 
 
@@ -15,7 +20,20 @@ func _ready():
 	z_index = 2
 	screen_size = get_viewport_rect().size
 	$AnimatedSprite2D.play()
+	_update_exp_label()
+	$experience_bar.max_value = experience_to_level_up
+	
 
+
+func _update_exp_label():
+	$experience_label.text = "Experience: " + str(experience) + " / " + str(experience_to_level_up)
+
+func _level_up():
+	level += 1
+	experience = 0
+	experience_to_level_up = 3 * (ceil(float(level)/2) + 1) * (1 + (ceil(float(level)/2) + 1))
+	$level_label.text = "Lvl " + str(level)
+	$experience_bar.max_value = experience_to_level_up
 
 func die()->void:
 	pass
@@ -23,7 +41,10 @@ func die()->void:
 
 func gain_experience(amount: int)->void:
 	experience += amount
-	print("Current exp: " + str(experience))
+	if experience >= experience_to_level_up:
+		_level_up()
+	_update_exp_label()
+	$experience_bar.value = experience
 
 
 func gain_health(amount: int)->void:
@@ -84,3 +105,33 @@ func use_ability()->void:
 func _physics_process(delta):
 	get_input()
 	move_and_collide(velocity * delta)
+
+
+# signals
+func _on_game_timer_timeout()->void:
+	_update_timer()
+
+
+func _update_timer()->void:
+	seconds_played += 1
+	if seconds_played == 60:
+		minutes_played += 1
+		seconds_played = 0
+	_update_timer_label()
+
+
+# can probably be done prettier for sure but w/e lol
+func _update_timer_label()->void:
+	var minutes
+	var seconds
+	
+	if minutes_played < 10:
+		minutes = "0" + str(minutes_played)
+	else:
+		minutes = str(minutes_played)
+	
+	if seconds_played < 10:
+		seconds = "0" + str(seconds_played)
+	else:
+		seconds = str(seconds_played)
+	$timer_label.text = minutes + ":" + seconds

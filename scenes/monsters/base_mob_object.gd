@@ -22,6 +22,7 @@ func attack_player()->void:
 	Global.player.lose_health(damage)
 	basic_attack_on_cooldown = true
 	$basic_attack_cooldown.start()
+	die()
 
 
 func die()->void:
